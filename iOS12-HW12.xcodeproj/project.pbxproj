@@ -10,7 +10,6 @@
 		BFC681FE2B88BEDC00DBA996 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC681FD2B88BEDC00DBA996 /* AppDelegate.swift */; };
 		BFC682002B88BEDC00DBA996 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC681FF2B88BEDC00DBA996 /* SceneDelegate.swift */; };
 		BFC682022B88BEDC00DBA996 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC682012B88BEDC00DBA996 /* ViewController.swift */; };
-		BFC682052B88BEDC00DBA996 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFC682032B88BEDC00DBA996 /* Main.storyboard */; };
 		BFC682072B88BEDF00DBA996 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFC682062B88BEDF00DBA996 /* Assets.xcassets */; };
 		BFC6820A2B88BEDF00DBA996 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFC682082B88BEDF00DBA996 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -20,7 +19,6 @@
 		BFC681FD2B88BEDC00DBA996 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFC681FF2B88BEDC00DBA996 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BFC682012B88BEDC00DBA996 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		BFC682042B88BEDC00DBA996 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BFC682062B88BEDF00DBA996 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BFC682092B88BEDF00DBA996 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BFC6820B2B88BEDF00DBA996 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,15 +54,38 @@
 		BFC681FC2B88BEDC00DBA996 /* iOS12-HW12 */ = {
 			isa = PBXGroup;
 			children = (
+				BFC682112B88BF9400DBA996 /* App */,
+				BFC682152B88BFE800DBA996 /* Sources */,
+				BFC682142B88BFE400DBA996 /* Resources */,
+			);
+			path = "iOS12-HW12";
+			sourceTree = "<group>";
+		};
+		BFC682112B88BF9400DBA996 /* App */ = {
+			isa = PBXGroup;
+			children = (
 				BFC681FD2B88BEDC00DBA996 /* AppDelegate.swift */,
 				BFC681FF2B88BEDC00DBA996 /* SceneDelegate.swift */,
-				BFC682012B88BEDC00DBA996 /* ViewController.swift */,
-				BFC682032B88BEDC00DBA996 /* Main.storyboard */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		BFC682142B88BFE400DBA996 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				BFC682062B88BEDF00DBA996 /* Assets.xcassets */,
 				BFC682082B88BEDF00DBA996 /* LaunchScreen.storyboard */,
 				BFC6820B2B88BEDF00DBA996 /* Info.plist */,
 			);
-			path = "iOS12-HW12";
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BFC682152B88BFE800DBA996 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				BFC682012B88BEDC00DBA996 /* ViewController.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +148,6 @@
 			files = (
 				BFC6820A2B88BEDF00DBA996 /* LaunchScreen.storyboard in Resources */,
 				BFC682072B88BEDF00DBA996 /* Assets.xcassets in Resources */,
-				BFC682052B88BEDC00DBA996 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,14 +167,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		BFC682032B88BEDC00DBA996 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BFC682042B88BEDC00DBA996 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		BFC682082B88BEDF00DBA996 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -294,10 +306,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6H45CDZK7M;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS12-HW12/Info.plist";
+				INFOPLIST_FILE = "iOS12-HW12/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.5;
@@ -308,9 +319,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.my.iOS12-HW12";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -323,10 +336,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6H45CDZK7M;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "iOS12-HW12/Info.plist";
+				INFOPLIST_FILE = "iOS12-HW12/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.5;
@@ -337,9 +349,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.my.iOS12-HW12";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
