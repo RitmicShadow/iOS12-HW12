@@ -7,6 +7,8 @@
 
 import UIKit
 
+import UIKit
+
 class CircularProgress: UIView {
 
     private var circleLayer = CAShapeLayer()
@@ -27,7 +29,7 @@ class CircularProgress: UIView {
     private func createCircularPath() {
         let circularPath = UIBezierPath(arcCenter: CGPoint(x: frame.size.width / 2.0,
                                                            y: frame.size.height / 2.0),
-                                        radius: 150,
+                                        radius: 120,
                                         startAngle: startPoint,
                                         endAngle: endPoint,
                                         clockwise: true)
@@ -44,7 +46,7 @@ class CircularProgress: UIView {
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.lineCap = .round
         progressLayer.lineWidth = 8.0
-        progressLayer.strokeColor = UIColor.green.cgColor
+        progressLayer.strokeColor = UIColor.systemOrange.cgColor
         layer.addSublayer(progressLayer)
     }
 
@@ -70,6 +72,7 @@ class CircularProgress: UIView {
         circularProgressAnimation.toValue = to
         circularProgressAnimation.fillMode = .forwards
         circularProgressAnimation.isRemovedOnCompletion = false
+
         progressLayer.add(circularProgressAnimation, forKey: "progressAnim")
     }
 }
