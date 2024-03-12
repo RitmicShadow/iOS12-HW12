@@ -7,41 +7,49 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
-    
-//    MARK: - UI
+class ViewController: UIViewController {
 
-    var timeRemaining: Int = 25
-    var timer: Timer!
+    private var isWorkTime = true
+    private var isStarted = false
 
-    var isWorckTime = true
-    var isStarted = false
+    // MARK: - Timer
 
-    private lazy var labelTime: UILabel = {
-        let labelTime = UILabel()
-        labelTime.text = String(self.timeRemaining)
-        labelTime.textColor = .red
-        labelTime.font = .systemFont(ofSize: 100)
-        labelTime.translatesAutoresizingMaskIntoConstraints = false
-        return labelTime
+    private var timer: Timer?
+    private var runCount = 0.0
+    private var duration = 25.0
+    private var fromValue: CGFloat = 1
+    private var toValue: CGFloat = 0
+    private var workingTime = 25.0
+    private var restTime = 5.0
+
+    // MARK: - UI
+
+    private lazy var timeLabel: UILabel = {
+        let label = UILabel()
+        label.text = String(Int(duration))
+        label.font = UIFont.monospacedDigitSystemFont(ofSize: 80, weight: .bold)
+        label.textColor = .systemRed
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
 
-    private lazy var playStopButtom: UIButton = {
-        let playStopButtom = UIButton()
-        playStopButtom.setImage(UIImage(named: "Play"),
-                                for: .normal)
-        playStopButtom.imageEdgeInsets = UIEdgeInsets(top: 40,
-                                                      left: 40,
-                                                      bottom: 40,
-                                                      right: 40)
-        playStopButtom.addTarget(self, 
-                                 action: #selector(starTimer),
-                                 for: .touchUpInside)
-        playStopButtom.translatesAutoresizingMaskIntoConstraints = false
-        return playStopButtom
+    private lazy var playStopButton: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(systemName: "play"), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
 
-    //    MARK: - Lifecycle
+    private lazy var circularProgress: CircularProgress = {
+        let view = CircularProgress()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,64 +57,80 @@ final class ViewController: UIViewController {
         setupHierarchy()
         setupLayout()
     }
-    
-//    MARK: - Setups
+
+    // MARK: - Setups
 
     private func setupView() {
-
+        view.backgroundColor = .black
     }
 
     private func setupHierarchy() {
-        view.addSubview(labelTime)
-        view.addSubview(playStopButtom)
+        view.addSubview(circularProgress)
+        view.addSubview(timeLabel)
+        view.addSubview(playStopButton)
     }
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            labelTime.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            labelTime.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            circularProgress.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            circularProgress.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 
-            playStopButtom.topAnchor.constraint(equalTo: labelTime.bottomAnchor, 
-                                                constant: 20),
-            playStopButtom.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            playStopButtom.heightAnchor.constraint(equalToConstant: 40),
-            playStopButtom.widthAnchor.constraint(equalToConstant: 40)
+            timeLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+            timeLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+            timeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+
+            playStopButton.heightAnchor.constraint(equalToConstant: 34),
+            playStopButton.widthAnchor.constraint(equalToConstant: 34),
+            playStopButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 10),
+            playStopButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 
-    @objc
-    func step() {
-        if self.timeRemaining > 0 {
-            self.timeRemaining -= 1
-        } else {
-            isWorckTime = !isWorckTime
-            if isWorckTime {
-                labelTime.textColor = .red
-                timeRemaining = 25
-            } else {
-                labelTime.textColor = .green
-                timeRemaining = 10
-            }
+    // MARK: - Actions
+
+    @objc private func buttonTapped() {
+        isStarted.toggle()
+
+        switch isStarted {
+        case true:
+            circularProgress.resumeAnimation()
+            timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(step), userInfo: nil, repeats: true)
+            playStopButton.setBackgroundImage(UIImage(systemName: "pause"), for: .normal)
+        default:
+            circularProgress.pauseAnimation()
+            timer?.invalidate()
+            playStopButton.setBackgroundImage(UIImage(systemName: "play"), for: .normal)
         }
-        labelTime.text = String(timeRemaining)
     }
 
-    @objc
-    func starTimer() {
-        isStarted = !isStarted
-        if isStarted {
-            self.timer = Timer.scheduledTimer(timeInterval: 1.0, 
-                                              target: self,
-                                              selector: #selector(step),
-                                              userInfo: nil,
-                                              repeats: true)
-            playStopButtom.setImage(UIImage(named: "Pause"),
-                                    for: .normal)
-        } else {
-            timer.invalidate()
-            playStopButtom.setImage(UIImage(named: "Play"),
-                                    for: .normal)
+    @objc private func step() {
+        let formatter = DateFormatter()
+        let rounded = runCount.rounded(.up)
+        let date = Date(timeIntervalSince1970: TimeInterval(rounded))
+
+        formatter.dateFormat = "ss"
+        timeLabel.text = formatter.string(from: date)
+
+        guard rounded == 0 else {
+            runCount -= 0.01
+            return
         }
+
+        if isWorkTime {
+            fromValue = 1
+            toValue = 0
+            duration = workingTime
+            runCount = workingTime
+            timeLabel.textColor = .systemRed
+        } else {
+            fromValue = 0
+            toValue = 1
+            duration = restTime
+            runCount = restTime
+            timeLabel.textColor = .systemGreen
+        }
+
+        isWorkTime.toggle()
+        circularProgress.progressAnimation(duration: duration, from: fromValue, to: toValue)
     }
 }
-
